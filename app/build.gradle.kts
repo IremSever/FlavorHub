@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.daggerHiltAndroid) // Dagger Hilt
     alias(libs.plugins.kotlinKapt) // Kotlin Kapt
+    id("kotlin-parcelize")
 }
 
 android {
@@ -44,7 +45,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
     buildFeatures {
+        viewBinding = true
         compose = true
         buildConfig = true
     }
@@ -80,37 +83,28 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.androidx.datastore.preferences)
 
-    // Accompanist
     implementation(libs.accompanist.systemuicontroller)
 
-    // Navigation Compose
     implementation(libs.navigation.compose)
 
-    // Dagger - Hilt
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
-    // Retrofit
     implementation(libs.retrofit)
 
-    // GSON
     implementation(libs.gson)
 
-    // GSON Converter
     implementation(libs.converter.gson.v2110)
 
-    // Room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
-    //noinspection KaptUsageInsteadOfKsp
+
     kapt(libs.room.compiler)
     testImplementation(libs.room.testing)
     androidTestImplementation(libs.room.testing)
-
-    // Work Manager
     implementation(libs.androidx.work.runtime.ktx)
-
-    // Coil
     implementation(libs.coil.compose)
+
 }
+

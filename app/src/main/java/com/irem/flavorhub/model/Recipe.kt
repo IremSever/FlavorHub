@@ -1,8 +1,14 @@
 package com.irem.flavorhub.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+@Parcelize
+@Entity
 data class Recipe(
     val aggregateLikes: Int?,
-    val analyzedInstructions: List<AnalyzedInstruction>?,
+    val analyzedInstructions: [Step],
     val cheap: Boolean?,
     val cookingMinutes: Any?,
     val creditsText: String?,
@@ -14,7 +20,7 @@ data class Recipe(
     val gaps: String?,
     val glutenFree: Boolean?,
     val healthScore: Int?,
-    val id: String,
+    @PrimaryKey val id: String,
     val image: String?,
     val imageType: String?,
     val instructions: String?,
@@ -38,4 +44,4 @@ data class Recipe(
     val veryHealthy: Boolean?,
     val veryPopular: Boolean?,
     val weightWatcherSmartPoints: Int?
-)
+):Parcelable

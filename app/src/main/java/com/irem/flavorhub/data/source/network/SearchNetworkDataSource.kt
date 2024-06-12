@@ -5,7 +5,8 @@ import androidx.paging.PagingState
 import com.irem.flavorhub.model.Recipe
 
 class SearchNetworkDataSource (
-    private val searchApi: RecipeApiService,
+    private val recipeApiService: RecipeApiService,
+    private val searchQuery: String,
     private val sources: String
 ) : PagingSource<Int, Recipe>() {
 
@@ -20,7 +21,7 @@ class SearchNetworkDataSource (
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Recipe> {
         val page = params.key ?: 1
         return try {
-            val recipeResponse = searchApi.getRecipe(sources = sources, page = page)
+            val recipeResponse = recipeApiService.getRecipe(sources = sources, page = page)
             totalRecipeCount += recipeResponse.recipes.size
             val recipes = recipeResponse.recipes.distinctBy { it.title }
 

@@ -1,16 +1,12 @@
 package com.irem.flavorhub.di
 
+
 import android.app.Application
-import com.irem.flavorhub.data.LocalUserManagerImpl
-import com.irem.flavorhub.data.RecipeRepository
-import com.irem.flavorhub.data.RecipeRepositoryImpl
+import androidx.room.Room
+import com.irem.flavorhub.data.local.RecipeDao
+import com.irem.flavorhub.data.local.RecipeDatabase
+import com.irem.flavorhub.data.local.RecipeType
 import com.irem.flavorhub.data.source.network.RecipeApiService
-import com.irem.flavorhub.domain.LocalUserManager
-import com.irem.flavorhub.domain.usecase.app_entry.AppEntryUseCases
-import com.irem.flavorhub.domain.usecase.app_entry.ReadAppEntry
-import com.irem.flavorhub.domain.usecase.app_entry.SaveAppEntry
-import com.irem.flavorhub.domain.usecase.recipes.GetRecipes
-import com.irem.flavorhub.domain.usecase.recipes.RecipeUseCases
 import com.irem.flavorhub.utils.Constants.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -25,20 +21,6 @@ import javax.inject.Singleton
 object DataProvider {
     @Provides
     @Singleton
-    fun provideLocalUserManger(
-        application: Application
-    ): LocalUserManager = LocalUserManagerImpl(application)
-
-    @Provides
-    @Singleton
-    fun provideAppEntryUseCases(
-        localUserManger: LocalUserManager
-    ): AppEntryUseCases = AppEntryUseCases(
-        readAppEntry = ReadAppEntry(localUserManger),
-        saveAppEntry = SaveAppEntry(localUserManger)
-    )
-    @Provides
-    @Singleton
     fun provideApiInstance(): RecipeApiService {
         return Retrofit
             .Builder()
@@ -50,21 +32,22 @@ object DataProvider {
 
     @Provides
     @Singleton
-    fun provideRecipeRepository(
-        recipeApi: RecipeApiService
-    ): RecipeRepository {
-        return RecipeRepositoryImpl(recipeApi)
+    fun provideRecipeDatabase(
+        application: Application
+    ): RecipeDatabase {
+        return Room.databaseBuilder(
+            context = application,
+            klass = RecipeDatabase::class.java,
+            name = "recipe_db"
+        ).addTypeConverter(RecipeType())
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
     @Singleton
-    fun provideRecipeUseCases(
-        recipeRepository: RecipeRepository
-    ): RecipeUseCases {
-        return RecipeUseCases(
-            getRecipes = GetRecipes(recipeRepository)
-            //searchRecipes = SearchRecipes(recipeRepository)
-        )
-    }
+    fun provideRecipeDao(
+        recipeDatabase: RecipeDatabase
+    ): RecipeDao = recipeDatabase.recipeDao()
 
 }

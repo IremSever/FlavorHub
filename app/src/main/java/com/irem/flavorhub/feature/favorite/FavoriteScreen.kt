@@ -1,34 +1,48 @@
 package com.irem.flavorhub.feature.favorite
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
 import com.irem.flavorhub.R
-import com.irem.flavorhub.ui.theme.Purple40
+import com.irem.flavorhub.feature.common.Dimension.mediumPadding
+import com.irem.flavorhub.feature.common.RecipeList
+import com.irem.flavorhub.model.Recipe
+import com.irem.flavorhub.viewmodel.favorite.FavoriteState
 
 @Composable
-fun FavoriteScreen() {
-    //center of text
-    Scaffold(
-        containerColor = Purple40
+fun FavoriteScreen(
+        state: FavoriteState,
+        navigateToDetails: (Recipe) -> Unit
     ) {
-        Box(modifier = Modifier
-            .padding(it)
-            .fillMaxSize()
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .statusBarsPadding()
+                .padding(top = mediumPadding, start = mediumPadding, end = mediumPadding)
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.splash),
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .align(Alignment.Center)
+
+            Text(
+                text = "Favorite",
+                style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Bold),
+                color = colorResource(
+                    id = R.color.purple_700
+                )
+            )
+
+            Spacer(modifier = Modifier.height(mediumPadding))
+
+            RecipeList(
+                recipes = state.recipe,
+                onClick = navigateToDetails
             )
         }
     }
-}

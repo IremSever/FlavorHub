@@ -17,5 +17,9 @@ interface RecipeDao {
     suspend fun delete(recipe: Recipe)
 
     @Query("SELECT * FROM Recipe")
-    fun getRecipe(): Flow<List<Recipe>>
+    fun getRecipes(): Flow<List<Recipe>>
+
+    @Query("SELECT * FROM Recipe WHERE sourceUrl=:url")
+    suspend fun getRecipe(url: String): Recipe?
+
 }

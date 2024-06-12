@@ -14,19 +14,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.irem.flavorhub.data.RecipeRepository
+import com.irem.flavorhub.data.RecipeRepositoryImpl
+import com.irem.flavorhub.data.source.network.RecipeApiService
 import com.irem.flavorhub.navigation.FlavorHubNavigationGraph
 import com.irem.flavorhub.ui.theme.FlavorHubTheme
 import com.irem.flavorhub.viewmodel.mail.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
-
+class MainActivity(private val recipeApiService: RecipeApiService) : ComponentActivity() {
     private val viewModel by viewModels<MainViewModel>()
-
+    private lateinit var repository: RecipeRepository
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
+
+        repository = RecipeRepositoryImpl(
+            recipeApi = recipeApiService,
+            context = applicationContext
+        )
+
 
         setContent {
             FlavorHubTheme(dynamicColor = false) {

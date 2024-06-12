@@ -10,7 +10,6 @@ class RecipeType {
     fun sourceToString(recipe: Recipe): String{
         return "${recipe.id},${recipe.title ?: ""}"
     }
-
     @TypeConverter
     fun stringToSource(recipe: String): Recipe{
         val parts = recipe.split(',')

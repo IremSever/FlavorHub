@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
 import com.irem.flavorhub.model.Recipe
 import com.irem.flavorhub.feature.common.Dimension.mediumPadding
 import com.irem.flavorhub.feature.common.Dimension.xSmallPadding
@@ -20,7 +19,7 @@ import com.irem.flavorhub.feature.home.components.HomeRecipeCard
 @Composable
 fun RecipeList(
     modifier: Modifier = Modifier,
-    recipes: LazyPagingItems<Recipe>,
+    recipes: List<Recipe>,
     onClick:(Recipe) -> Unit
 ) {
 
@@ -34,7 +33,7 @@ fun RecipeList(
             contentPadding = PaddingValues(all = xSmallPadding)
         ) {
             items(
-                count = recipes.itemCount,
+                count = recipes.size,
             ) {
                 recipes[it]?.let { recipe ->
                     HomeRecipeCard(recipe = recipe, onClick = {onClick(recipe)})
@@ -45,7 +44,7 @@ fun RecipeList(
 }
 
 @Composable
-fun handlePagingResult(recipes: LazyPagingItems<Recipe>): Boolean {
+fun handlePagingResult(recipes: List<Recipe>): Boolean {
     val loadState = recipes.loadState
     val error = when {
         loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
