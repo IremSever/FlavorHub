@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.paging.compose.LazyPagingItems
 import com.irem.flavorhub.feature.common.Dimension.mediumPadding
 import com.irem.flavorhub.feature.common.Dimension.xSmallPadding
-import com.irem.flavorhub.feature.home.components.HomeRecipeCard
 import com.irem.flavorhub.model.Recipe
 
 @Composable
@@ -32,7 +31,7 @@ fun RecipeList(
         items(
             count = recipes.size,
         ) {
-            recipes[it]?.let { recipe ->
+            recipes[it].let { recipe ->
                 HomeRecipeCard(recipe = recipe, onClick = { onClick(recipe) })
             }
         }
@@ -98,7 +97,7 @@ fun handlePagingResult(articles: LazyPagingItems<Recipe>): Boolean {
 fun ShimmerEffect() {
     Column(verticalArrangement = Arrangement.spacedBy(mediumPadding)) {
         repeat(10) {
-            ShimmerEffect(
+            CardShimmerEffect(
                 modifier = Modifier.padding(horizontal = mediumPadding)
             )
         }

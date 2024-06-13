@@ -91,6 +91,8 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+
     implementation(libs.hilt.navigation.compose)
 
     implementation(libs.retrofit)
@@ -103,15 +105,19 @@ dependencies {
     implementation(libs.room.ktx)
 
     kapt(libs.room.compiler)
+
     testImplementation(libs.room.testing)
     androidTestImplementation(libs.room.testing)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.coil.compose)
 
-    implementation("com.google.guava:guava:30.1-jre")
-    implementation ("androidx.paging:paging-compose:3.3.0")
+    implementation(libs.guava)
+    implementation (libs.androidx.paging.compose)
 
+    implementation (libs.androidx.core.splashscreen)
 
+    implementation ("com.google.dagger:hilt-android:2.44")
+    kapt ("com.google.dagger:hilt-compiler:2.44")
 
 }
 

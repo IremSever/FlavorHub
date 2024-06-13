@@ -16,7 +16,6 @@ import com.irem.flavorhub.R
 import com.irem.flavorhub.feature.common.Dimension.mediumPadding
 import com.irem.flavorhub.feature.common.RecipeList
 import com.irem.flavorhub.model.Recipe
-import com.irem.flavorhub.viewmodel.favorite.FavoriteState
 
 @Composable
 fun FavoriteScreen(
@@ -31,7 +30,7 @@ fun FavoriteScreen(
     ) {
 
         Text(
-            text = "Recipe",
+            text = "Favorite",
             style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Bold),
             color = colorResource(
                 id = R.color.black
@@ -41,7 +40,7 @@ fun FavoriteScreen(
         Spacer(modifier = Modifier.height(mediumPadding))
 
         RecipeList(
-            recipes = state.recipe,
+            recipes = state.recipes,
             onClick = navigateToDetails
         )
     }

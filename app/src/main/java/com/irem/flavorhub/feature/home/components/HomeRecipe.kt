@@ -21,9 +21,6 @@ import androidx.compose.ui.layout.ContentScale
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.irem.flavorhub.R
-import com.irem.flavorhub.feature.Dimension.homeCardPadding
-import com.irem.flavorhub.feature.Dimension.smallPadding
-import com.irem.flavorhub.feature.Dimension.xSmallPadding
 import com.irem.flavorhub.ui.theme.FlavorHubTheme
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.style.TextOverflow
@@ -31,6 +28,9 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import com.irem.flavorhub.feature.common.Dimension.homeCardPadding
+import com.irem.flavorhub.feature.common.Dimension.smallPadding
+import com.irem.flavorhub.feature.common.Dimension.xSmallPadding
 import com.irem.flavorhub.ui.theme.Purple40
 import com.irem.flavorhub.ui.theme.Purple80
 import com.irem.flavorhub.ui.theme.PurpleGrey80
@@ -76,7 +76,6 @@ fun HomeRecipe(
                 )
                 Spacer(modifier = Modifier.width(xSmallPadding))
                 Icon(
-                    //buraya bak
                     painter = painterResource(id = R.drawable.login),
                     contentDescription = null,
                     modifier = Modifier.size(smallPadding),

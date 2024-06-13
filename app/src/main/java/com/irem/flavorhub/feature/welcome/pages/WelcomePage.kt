@@ -47,7 +47,6 @@ fun WelcomePage(
             modifier = Modifier.padding(horizontal = largePadding),
             text = welcomeData.spot,
             style = MaterialTheme.typography.bodyMedium,
-            //renk bak
             color = colorResource(id = R.color.purple_200)
         )
     }
@@ -61,7 +60,6 @@ fun WelcomePagePreview() {
             welcomeData = WelcomeData(
                 title = "Lorem Ipsum is simply dummy",
                 spot = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-
                 image = R.drawable.welcome1
             )
         )

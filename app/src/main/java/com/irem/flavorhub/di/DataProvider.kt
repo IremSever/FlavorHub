@@ -48,7 +48,5 @@ object DataProvider {
     @Singleton
     fun provideRecipeDao(
         recipeDatabase: RecipeDatabase
-    ): RecipeDao = recipeDatabase.recipeDao()
-
-
+    ): RecipeDao = recipeDatabase.recipeDao
 }

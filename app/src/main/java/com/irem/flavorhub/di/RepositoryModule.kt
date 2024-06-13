@@ -13,6 +13,6 @@ import javax.inject.Singleton
 abstract class RepositoryModule {
     @Binds
     @Singleton
-    abstract fun bindNewsRepository(newsRepositoryImpl: RecipeRepositoryImpl): RecipeRepository
+    abstract fun bindRecipeRepository(recipeRepositoryImpl: RecipeRepositoryImpl): RecipeRepository
 
 }

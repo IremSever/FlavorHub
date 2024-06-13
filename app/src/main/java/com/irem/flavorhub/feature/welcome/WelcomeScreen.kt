@@ -18,19 +18,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.irem.flavorhub.feature.welcome.buttons.LetsCookButton
-import com.irem.flavorhub.feature.welcome.buttons.LetsCookText
 import com.irem.flavorhub.feature.welcome.pages.PagesIndicator
 import com.irem.flavorhub.feature.welcome.pages.WelcomePage
 import kotlinx.coroutines.launch
 import com.irem.flavorhub.feature.common.Dimension.mediumPadding
 import com.irem.flavorhub.feature.common.Dimension.pagesIndicatorPadding
-import com.irem.flavorhub.viewmodel.welcome.WelcomeEvent
+import com.irem.flavorhub.feature.welcome.pages.LetsCookButton
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun WelcomeScreen(
-    event: (WelcomeEvent) -> Unit
+    onEvent: (WelcomeEvent)-> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         val pagerState = rememberPagerState(initialPage = 0) {
@@ -66,9 +64,8 @@ fun WelcomeScreen(
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 val scope = rememberCoroutineScope()
-                //hide the button when the first element of the list is empty
                 if (buttonsState.value[0].isNotEmpty()) {
-                    LetsCookText(
+                    LetsCookButton(
                         text = buttonsState.value[0],
                         onClick = {
                             scope.launch {
@@ -76,7 +73,6 @@ fun WelcomeScreen(
                                     page = pagerState.currentPage - 1
                                 )
                             }
-
                         }
                     )
                 }
@@ -84,9 +80,9 @@ fun WelcomeScreen(
                     text = buttonsState.value[1],
                     onClick = {
                         scope.launch {
-                            if (pagerState.currentPage == 2){
-                                event(WelcomeEvent.SaveAppEntry)
-                            }else{
+                            if (pagerState.currentPage == 2) {
+                                onEvent(WelcomeEvent.SaveAppEntry)
+                            } else {
                                 pagerState.animateScrollToPage(
                                     page = pagerState.currentPage + 1
                                 )
@@ -99,3 +95,4 @@ fun WelcomeScreen(
         Spacer(modifier = Modifier.weight(0.5f))
     }
 }
+

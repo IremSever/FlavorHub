@@ -31,14 +31,14 @@ import com.irem.flavorhub.feature.common.RecipeSearchBar
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
 fun HomeScreen(
-    recipe: LazyPagingItems<Recipe>,
+    recipes: LazyPagingItems<Recipe>,
     navigateToSearch: () -> Unit,
     navigateToDetails: (Recipe) -> Unit
 ) {
     val titles by remember {
         derivedStateOf {
-            if (recipe.itemCount > 10) {
-                recipe.itemSnapshotList.items
+            if (recipes.itemCount > 10) {
+                recipes.itemSnapshotList.items
                     .slice(IntRange(start = 0, endInclusive = 9))
                     .joinToString(separator = " \uD83D\uDFE5 ") { it.title.toString() }
             } else {
@@ -89,10 +89,9 @@ fun HomeScreen(
 
         Spacer(modifier = Modifier.height(mediumPadding))
 
-        // RecipeList component displaying the list of recipes
         RecipeList(
             modifier = Modifier.padding(horizontal = mediumPadding),
-            recipes = recipe,
+            recipes = recipes,
             onClick = navigateToDetails
         )
     }

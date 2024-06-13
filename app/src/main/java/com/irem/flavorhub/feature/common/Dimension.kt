@@ -12,4 +12,5 @@ object Dimension {
 
     val iconSize = 20.dp
     val homeCardPadding = 100.dp
+    val recipeImageHeight = 300.dp
 }

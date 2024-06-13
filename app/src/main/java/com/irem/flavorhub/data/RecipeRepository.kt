@@ -5,10 +5,10 @@ import com.irem.flavorhub.model.Recipe
 import kotlinx.coroutines.flow.Flow
 
 interface RecipeRepository {
-    fun getRecipes(): Flow<List<Recipe>>
+    fun getRecipeDet(sources: List<String>): Flow<PagingData<Recipe>>
+    fun searchRecipe(searchQuery: String, sources: List<String>): Flow<PagingData<Recipe>>
     suspend fun upsertRecipe(recipe: Recipe)
     suspend fun deleteRecipe(recipe: Recipe)
-    fun getRecipePagingData(sources: List<String>): Flow<PagingData<Recipe>>
-    fun searchRecipe(searchQuery: String, sources: List<String>): Flow<PagingData<Recipe>>
+    fun getRecipes(): Flow<List<Recipe>>
     suspend fun getRecipe(url: String): Recipe?
 }

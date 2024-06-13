@@ -23,12 +23,13 @@ import com.irem.flavorhub.R
 import com.irem.flavorhub.model.Recipe
 import com.irem.flavorhub.feature.detail.DetailScreen
 import com.irem.flavorhub.feature.home.HomeScreen
-import com.irem.flavorhub.feature.recipe_navigator.component.BottomNavigationItem
-import com.irem.flavorhub.feature.recipe_navigator.component.FlavorHubNavigation
+import com.irem.flavorhub.feature.navigation.BottomNavigationItem
+import com.irem.flavorhub.feature.navigation.FlavorHubNavigation
 import com.irem.flavorhub.feature.search.SearchScreen
-import com.irem.flavorhub.navigation.FlavorHubRoute
-import com.irem.flavorhub.viewmodel.home.HomeViewModel
-import com.irem.flavorhub.viewmodel.search.SearchViewModel
+import com.irem.flavorhub.feature.navigation.FlavorHubRoute
+import com.irem.flavorhub.feature.detail.DetailViewModel
+import com.irem.flavorhub.feature.home.HomeViewModel
+import com.irem.flavorhub.feature.search.SearchViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,9 +42,9 @@ fun RecipeNavigatorScreen() {
             BottomNavigationItem(icon = R.drawable.ic_favorite, text = "Favorite"),
         )
     }
-
     val navController = rememberNavController()
     val backStackState = navController.currentBackStackEntryAsState().value
+
     var selectedItem by rememberSaveable {
         mutableStateOf(0)
     }
@@ -53,13 +54,12 @@ fun RecipeNavigatorScreen() {
         FlavorHubRoute.FAVORITE.route -> 2
         else -> 0
     }
-
+    //hide nav bar detail screen
     val isBottomBarVisible = remember(key1 = backStackState) {
         backStackState?.destination?.route == FlavorHubRoute.HOME.route ||
                 backStackState?.destination?.route == FlavorHubRoute.SEARCH.route ||
                 backStackState?.destination?.route == FlavorHubRoute.FAVORITE.route
     }
-
     Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = {
         if (isBottomBarVisible) {
             FlavorHubNavigation(
@@ -71,12 +71,10 @@ fun RecipeNavigatorScreen() {
                             navController = navController,
                             route = FlavorHubRoute.HOME.route
                         )
-
                         1 -> navigateToTab(
                             navController = navController,
                             route = FlavorHubRoute.SEARCH.route
                         )
-
                         2 -> navigateToTab(
                             navController = navController,
                             route = FlavorHubRoute.FAVORITE.route
@@ -94,9 +92,9 @@ fun RecipeNavigatorScreen() {
         ) {
             composable(route = FlavorHubRoute.HOME.route) { backStackEntry ->
                 val viewModel: HomeViewModel = hiltViewModel()
-                val recipe = viewModel.recipes.collectAsLazyPagingItems()
+                val recipes = viewModel.recipes.collectAsLazyPagingItems()
                 HomeScreen(
-                    recipe = recipe,
+                    recipes = recipes,
                     navigateToSearch = {
                         navigateToTab(
                             navController = navController,
@@ -129,18 +127,19 @@ fun RecipeNavigatorScreen() {
                 )
             }
             composable(route = FlavorHubRoute.DETAIL.route) {
+                val viewModel: DetailViewModel = hiltViewModel()
+                val sideEffect = viewModel.sideEffect
                 navController.previousBackStackEntry?.savedStateHandle?.get<Recipe?>("detail")
                     ?.let { recipe ->
                         DetailScreen(
                             recipe = recipe,
                             event = {},
-                            navigateUp = { navController.navigateUp() }
+                            navigateUp = { navController.navigateUp() },
+                            sideEffect = sideEffect
                         )
                     }
-
             }
             composable(route = FlavorHubRoute.FAVORITE.route) {
-
             }
         }
     }
@@ -155,7 +154,6 @@ fun OnBackClickStateSaver(navController: NavController) {
         )
     }
 }
-
 private fun navigateToTab(navController: NavController, route: String) {
     navController.navigate(route) {
         navController.graph.startDestinationRoute?.let { screen_route ->
@@ -167,7 +165,6 @@ private fun navigateToTab(navController: NavController, route: String) {
         restoreState = true
     }
 }
-
 private fun navigateToDetails(navController: NavController, recipe: Recipe) {
     navController.currentBackStackEntry?.savedStateHandle?.set("recipe", recipe)
     navController.navigate(

@@ -31,9 +31,10 @@ import com.irem.flavorhub.R
 import com.irem.flavorhub.feature.common.Dimension.iconSize
 import com.irem.flavorhub.ui.theme.FlavorHubTheme
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchRecipe(
+fun  SearchRecipe(
     modifier: Modifier = Modifier,
     text: String,
     readOnly: Boolean,
@@ -65,20 +66,18 @@ fun SearchRecipe(
                     painter = painterResource(id = R.drawable.ic_search),
                     contentDescription = null,
                     modifier = Modifier.size(iconSize),
-                    tint = colorResource(id = R.color.purple_200)
+                    tint = colorResource(id = R.color.purple_500)
                 )
             },
             placeholder = {
                 Text(
                     text = "Search",
                     style = MaterialTheme.typography.bodySmall,
-                    color = colorResource(id = R.color.purple_700)
+                    color = colorResource(id = R.color.purple_200)
                 )
             },
             shape = MaterialTheme.shapes.medium,
             colors = TextFieldDefaults.textFieldColors(
-                containerColor = colorResource(id = R.color.purple_200),
-                //textColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
                 cursorColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
                 disabledIndicatorColor = Color.Transparent,
                 errorIndicatorColor = Color.Transparent,
@@ -109,7 +108,6 @@ fun Modifier.searchBar(): Modifier = composed {
         this
     }
 }
-
 @Preview(showBackground = true)
 @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
 @Composable

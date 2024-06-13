@@ -1,7 +1,11 @@
 [versions]
 agp = "8.3.2"
 coilCompose = "2.6.0"
+coreSplashscreen = "1.0.1"
 datastorePreferences = "1.1.1"
+guava = "30.1-jre"
+hiltAndroid = "2.44"
+hiltCompiler = "2.44"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -13,6 +17,7 @@ composeBom = "2024.05.00"
 accompanist = "0.31.5-beta"
 hilt = "2.49"
 hiltNavigationCompose = "1.2.0"
+pagingCompose = "3.3.0"
 room = "2.6.1"
 workRuntimeKtx = "2.9.0"
 retrofit = "2.11.0"
@@ -26,9 +31,14 @@ junitKtx = "1.1.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pagingCompose" }
 androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
+hilt-android-v244 = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-compiler-v244 = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

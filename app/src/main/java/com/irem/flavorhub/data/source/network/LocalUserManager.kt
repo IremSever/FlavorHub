@@ -1,0 +1,9 @@
+package com.irem.flavorhub.data.source.network
+
+import kotlinx.coroutines.flow.Flow
+
+interface LocalUserManager {
+    suspend fun saveAppEntry()
+    fun readAppEntry(): Flow<Boolean>
+
+}

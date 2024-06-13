@@ -12,8 +12,6 @@ import com.irem.flavorhub.feature.common.Dimension.mediumPadding
 import com.irem.flavorhub.feature.common.RecipeList
 import com.irem.flavorhub.feature.common.RecipeSearchBar
 import com.irem.flavorhub.model.Recipe
-import com.irem.flavorhub.viewmodel.search.SearchEvent
-import com.irem.flavorhub.viewmodel.search.SearchState
 
 
 @Composable

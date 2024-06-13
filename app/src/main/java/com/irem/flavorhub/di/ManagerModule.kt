@@ -1,7 +1,7 @@
 package com.irem.flavorhub.di
 
 import com.irem.flavorhub.data.LocalUserManagerImpl
-import com.irem.flavorhub.domain.LocalUserManager
+import com.irem.flavorhub.data.source.network.LocalUserManager
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

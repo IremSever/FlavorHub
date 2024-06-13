@@ -29,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.irem.flavorhub.R
 import com.irem.flavorhub.feature.common.Dimension.iconSize
+import com.irem.flavorhub.feature.common.Dimension.xSmallPadding
 import com.irem.flavorhub.ui.theme.FlavorHubTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -76,15 +77,17 @@ fun RecipeSearchBar(
                 )
             },
             shape = MaterialTheme.shapes.medium,
-            colors = TextFieldDefaults.textFieldColors(
-                containerColor = colorResource(id = R.color.purple_700),
-                //textColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
-                cursorColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
-                disabledIndicatorColor = Color.Transparent,
-                errorIndicatorColor = Color.Transparent,
-                focusedIndicatorColor = Color.Transparent,
-                unfocusedIndicatorColor = Color.Transparent
-            ),
+            colors = TextFieldDefaults.run {
+                textFieldColors(
+                        containerColor = colorResource(id = R.color.purple_700),
+                        focusedTextColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
+                        cursorColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
+                        disabledIndicatorColor = Color.Transparent,
+                        errorIndicatorColor = Color.Transparent,
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
+                    )
+            },
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
             keyboardActions = KeyboardActions(
@@ -101,7 +104,7 @@ fun RecipeSearchBar(
 fun Modifier.searchBar(): Modifier = composed {
     if (!isSystemInDarkTheme()) {
         border(
-            width = 1.dp,
+            width = xSmallPadding / 3,
             color = Color.Black,
             shape = MaterialTheme.shapes.medium
         )

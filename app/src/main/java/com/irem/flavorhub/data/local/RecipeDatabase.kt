@@ -8,5 +8,5 @@ import androidx.room.RoomDatabase
 @Database(entities = [Recipe::class], version = 1)
 @TypeConverters(RecipeType::class)
 abstract class RecipeDatabase : RoomDatabase() {
-    abstract fun recipeDao(): RecipeDao
+    abstract val recipeDao: RecipeDao
 }

@@ -8,7 +8,7 @@ import com.irem.flavorhub.model.Recipe
 class RecipeType {
     @TypeConverter
     fun sourceToString(recipe: Recipe): String{
-        return "${recipe.id},${recipe.title ?: ""}"
+        return "${recipe.id},${recipe.sourceName ?: ""}"
     }
     @TypeConverter
     fun stringToSource(recipe: String): Recipe{
