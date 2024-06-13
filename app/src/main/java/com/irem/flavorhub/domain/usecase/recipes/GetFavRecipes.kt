@@ -10,7 +10,7 @@ class GetFavRecipes @Inject constructor(
 ) {
 
     operator fun invoke(): Flow<List<Recipe>>{
-        return recipeDao.getRecipe()
+        return recipeDao.getRecipes()
     }
 
 }

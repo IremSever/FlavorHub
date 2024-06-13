@@ -10,6 +10,6 @@ class GetRecipes(
     private val recipeRepository: RecipeRepository
 ) {
     operator fun invoke(sources: List<String>): Flow<PagingData<Recipe>> {
-        return recipeRepository.getRecipe(sources = sources)
+        return recipeRepository.getRecipePagingData(sources = sources)
     }
 }

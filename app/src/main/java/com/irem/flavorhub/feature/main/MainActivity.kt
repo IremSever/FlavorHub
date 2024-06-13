@@ -16,6 +16,7 @@ import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.irem.flavorhub.data.RecipeRepository
 import com.irem.flavorhub.data.RecipeRepositoryImpl
+import com.irem.flavorhub.data.local.RecipeDao
 import com.irem.flavorhub.data.source.network.RecipeApiService
 import com.irem.flavorhub.navigation.FlavorHubNavigationGraph
 import com.irem.flavorhub.ui.theme.FlavorHubTheme
@@ -23,7 +24,7 @@ import com.irem.flavorhub.viewmodel.mail.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity(private val recipeApiService: RecipeApiService) : ComponentActivity() {
+class MainActivity(private val recipeApiService: RecipeApiService, private val recipeDao: RecipeDao) : ComponentActivity() {
     private val viewModel by viewModels<MainViewModel>()
     private lateinit var repository: RecipeRepository
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +32,8 @@ class MainActivity(private val recipeApiService: RecipeApiService) : ComponentAc
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         repository = RecipeRepositoryImpl(
-            recipeApi = recipeApiService,
-            context = applicationContext
+            recipeApiService = recipeApiService,
+            recipeDao = recipeDao
         )
 
 

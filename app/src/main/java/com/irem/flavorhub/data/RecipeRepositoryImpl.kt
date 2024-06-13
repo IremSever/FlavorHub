@@ -46,7 +46,7 @@ class RecipeRepositoryImpl @Inject constructor(
         ).flow
     }
 
-    override suspend fun getARecipe(url: String): Recipe? {
+    override suspend fun getRecipe(url: String): Recipe? {
         return recipeDao.getRecipe(url)
     }
 }

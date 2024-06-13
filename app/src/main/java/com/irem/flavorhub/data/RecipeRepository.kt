@@ -10,5 +10,5 @@ interface RecipeRepository {
     suspend fun deleteRecipe(recipe: Recipe)
     fun getRecipePagingData(sources: List<String>): Flow<PagingData<Recipe>>
     fun searchRecipe(searchQuery: String, sources: List<String>): Flow<PagingData<Recipe>>
-    suspend fun getARecipe(url: String): Recipe?
+    suspend fun getRecipe(url: String): Recipe?
 }

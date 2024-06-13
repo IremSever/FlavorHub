@@ -74,6 +74,8 @@ dependencies {
     implementation(libs.androidx.datastore.preferences.core.jvm)
     implementation(libs.androidx.paging.common.android)
     implementation(libs.androidx.paging.compose.android)
+    implementation(libs.androidx.junit.ktx)
+    implementation("org.testng:testng:6.9.6")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -105,6 +107,11 @@ dependencies {
     androidTestImplementation(libs.room.testing)
     implementation(libs.androidx.work.runtime.ktx)
     implementation(libs.coil.compose)
+
+    implementation("com.google.guava:guava:30.1-jre")
+    implementation ("androidx.paging:paging-compose:3.3.0")
+
+
 
 }
 
