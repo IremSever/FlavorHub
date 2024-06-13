@@ -20,29 +20,29 @@ import com.irem.flavorhub.viewmodel.favorite.FavoriteState
 
 @Composable
 fun FavoriteScreen(
-        state: FavoriteState,
-        navigateToDetails: (Recipe) -> Unit
+    state: FavoriteState,
+    navigateToDetails: (Recipe) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .statusBarsPadding()
+            .padding(top = mediumPadding, start = mediumPadding, end = mediumPadding)
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .statusBarsPadding()
-                .padding(top = mediumPadding, start = mediumPadding, end = mediumPadding)
-        ) {
 
-            Text(
-                text = "Favorite",
-                style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Bold),
-                color = colorResource(
-                    id = R.color.purple_700
-                )
+        Text(
+            text = "Recipe",
+            style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Bold),
+            color = colorResource(
+                id = R.color.black
             )
+        )
 
-            Spacer(modifier = Modifier.height(mediumPadding))
+        Spacer(modifier = Modifier.height(mediumPadding))
 
-            RecipeList(
-                recipes = state.recipe,
-                onClick = navigateToDetails
-            )
-        }
+        RecipeList(
+            recipes = state.recipe,
+            onClick = navigateToDetails
+        )
     }
+}

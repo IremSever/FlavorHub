@@ -94,7 +94,7 @@ fun RecipeNavigatorScreen() {
         ) {
             composable(route = FlavorHubRoute.HOME.route) { backStackEntry ->
                 val viewModel: HomeViewModel = hiltViewModel()
-                val recipe = viewModel.recipe.collectAsLazyPagingItems()
+                val recipe = viewModel.recipes.collectAsLazyPagingItems()
                 HomeScreen(
                     recipe = recipe,
                     navigateToSearch = {

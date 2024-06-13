@@ -4,20 +4,22 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.irem.flavorhub.domain.usecase.recipes.RecipeUseCases
+import com.irem.flavorhub.data.local.RecipeDao
+import com.irem.flavorhub.domain.usecase.recipes.GetRecipes
+import com.irem.flavorhub.model.Recipe
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-@HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val recipeUseCases: RecipeUseCases
+    private val getNewsUseCase: GetRecipes
 ): ViewModel() {
 
     var state = mutableStateOf(HomeState())
         private set
 
-    val recipe = recipeUseCases.getRecipes(
-        sources = listOf("spoonacular")
+    val recipes = getNewsUseCase(
+        sources = listOf("recipe")
     ).cachedIn(viewModelScope)
 
 }
+

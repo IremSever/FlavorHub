@@ -1,7 +1,5 @@
 package com.irem.flavorhub.feature.common
 
-import androidx.paging.compose.collectAsLazyPagingItems
-import com.irem.flavorhub.model.Recipe
 import androidx.paging.LoadState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,17 +13,42 @@ import androidx.paging.compose.LazyPagingItems
 import com.irem.flavorhub.feature.common.Dimension.mediumPadding
 import com.irem.flavorhub.feature.common.Dimension.xSmallPadding
 import com.irem.flavorhub.feature.home.components.HomeRecipeCard
-import com.irem.flavorhub.feature.common.EmptyScreen
-import com.irem.flavorhub.feature.common.ShimmerEffect
+import com.irem.flavorhub.model.Recipe
+
+@Composable
+fun RecipeList(
+    modifier: Modifier = Modifier,
+    recipes: List<Recipe>,
+    onClick: (Recipe) -> Unit
+) {
+    if (recipes.isEmpty()){
+        EmptyScreen()
+    }
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(mediumPadding),
+        contentPadding = PaddingValues(all = xSmallPadding)
+    ) {
+        items(
+            count = recipes.size,
+        ) {
+            recipes[it]?.let { recipe ->
+                HomeRecipeCard(recipe = recipe, onClick = { onClick(recipe) })
+            }
+        }
+    }
+
+}
+
 @Composable
 fun RecipeList(
     modifier: Modifier = Modifier,
     recipes: LazyPagingItems<Recipe>,
     onClick: (Recipe) -> Unit
 ) {
-    val pagingItems = recipes.collectAsLazyPagingItems()
 
-    val handlePagingResult = handlePagingResult(pagingItems)
+    val handlePagingResult = handlePagingResult(recipes)
+
 
     if (handlePagingResult) {
         LazyColumn(
@@ -34,21 +57,19 @@ fun RecipeList(
             contentPadding = PaddingValues(all = xSmallPadding)
         ) {
             items(
-                count = pagingItems.itemCount,
-                itemContent = { index ->
-                    val recipe = pagingItems[index]
-                    if (recipe != null) {
-                        HomeRecipeCard(recipe = recipe, onClick = { onClick(recipe) })
-                    }
+                count = recipes.itemCount,
+            ) {
+                recipes[it]?.let { recipe ->
+                    HomeRecipeCard(recipe = recipe, onClick = { onClick(recipe) })
                 }
-            )
+            }
         }
     }
 }
 
 @Composable
-fun handlePagingResult(recipes: LazyPagingItems<Recipe>): Boolean {
-    val loadState = recipes.loadState
+fun handlePagingResult(articles: LazyPagingItems<Recipe>): Boolean {
+    val loadState = articles.loadState
     val error = when {
         loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
         loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
@@ -73,11 +94,10 @@ fun handlePagingResult(recipes: LazyPagingItems<Recipe>): Boolean {
     }
 }
 
-
 @Composable
 fun ShimmerEffect() {
-    Column(verticalArrangement = Arrangement.spacedBy(mediumPadding)){
-        repeat(10){
+    Column(verticalArrangement = Arrangement.spacedBy(mediumPadding)) {
+        repeat(10) {
             ShimmerEffect(
                 modifier = Modifier.padding(horizontal = mediumPadding)
             )

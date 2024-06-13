@@ -35,7 +35,6 @@ fun HomeScreen(
     navigateToSearch: () -> Unit,
     navigateToDetails: (Recipe) -> Unit
 ) {
-
     val titles by remember {
         derivedStateOf {
             if (recipe.itemCount > 10) {
@@ -79,15 +78,18 @@ fun HomeScreen(
         Spacer(modifier = Modifier.height(mediumPadding))
 
         Text(
-            text = titles, modifier = Modifier
+            text = titles,
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = mediumPadding)
-                .basicMarquee(), fontSize = 12.sp,
+                .basicMarquee(),
+            fontSize = 12.sp,
             color = colorResource(id = R.color.purple_200)
         )
 
         Spacer(modifier = Modifier.height(mediumPadding))
 
+        // RecipeList component displaying the list of recipes
         RecipeList(
             modifier = Modifier.padding(horizontal = mediumPadding),
             recipes = recipe,

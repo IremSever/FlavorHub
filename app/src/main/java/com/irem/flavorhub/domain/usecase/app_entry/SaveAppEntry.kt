@@ -2,7 +2,9 @@ package com.irem.flavorhub.domain.usecase.app_entry
 
 import com.irem.flavorhub.domain.LocalUserManager
 
-class SaveAppEntry(
+import javax.inject.Inject
+
+class SaveAppEntry @Inject constructor(
     private val localUserManger: LocalUserManager
 ) {
 

@@ -50,4 +50,5 @@ object DataProvider {
         recipeDatabase: RecipeDatabase
     ): RecipeDao = recipeDatabase.recipeDao()
 
+
 }
